@@ -58,11 +58,11 @@ export default {
   },
 
   battle: players => {
-    return axios.all([
+    return axios.all(
       players
         .map(getUserData)
         .then(sortPlayers)
         .catch(handleError)
-    ]);
+    );
   }
 };
