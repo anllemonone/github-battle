@@ -47,6 +47,13 @@ const sortPlayers = players => {
 };
 
 const Api = {
+  battle: players => {
+    return axios
+      .all(players.map(getUserData))
+      .then(sortPlayers)
+      .catch(handleError);
+  },
+
   fetchPopularRepos: language => {
     var encodeURI = window.encodeURI(
       `https://api.github.com/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`
@@ -55,15 +62,6 @@ const Api = {
     return axios.get(encodeURI).then(response => {
       return response.data.items;
     });
-  },
-
-  battle: players => {
-    return axios.all(
-      players
-        .map(getUserData)
-        .then(sortPlayers)
-        .catch(handleError)
-    );
   }
 };
 
